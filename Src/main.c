@@ -32,11 +32,11 @@ int main(void)
            drive external LEDs */
     GPIO_InitStruct.Pin = (GPIO_PIN_5);
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
+/*
     while (1)
     {
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
@@ -56,7 +56,45 @@ int main(void)
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
     }
+*/
+    while (1)
+    {
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    }
+
 }
+
 
 /** System Clock Configuration
 */

@@ -175,7 +175,6 @@
 		<Unit filename="Inc\main.h" />
 		<Unit filename="Inc\stm32l0xx_hal_conf.h" />
 		<Unit filename="Inc\stm32l0xx_it.h" />
-		<Unit filename="Inc\uart.h" />
 		<Unit filename="Src\main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -183,9 +182,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Src\stm32l0xx_it.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Src\uart.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="startup_stm32l0xx.S">

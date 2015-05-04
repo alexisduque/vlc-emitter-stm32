@@ -36,6 +36,9 @@
 #include "stm32l0xx.h"
 #include "stm32l0xx_it.h"
 
+#define BITRATE_570KHZ 32000000
+#define BITRATE_285KHZ 32000000
+
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
@@ -65,6 +68,7 @@ void SysTick_Init(void)
      *SystemFrequency/1000000   1us         *
      *****************************************/
     while (SysTick_Config(SystemCoreClock / 32000000) != 0)
+
     {
     } // One SysTick interrupt now equals 1us
 
