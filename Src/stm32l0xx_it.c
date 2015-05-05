@@ -44,8 +44,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-
-static __IO uint32_t sysTickCounter;
+extern TIM_HandleTypeDef htim2;
 
 /******************************************************************************/
 /*            Cortex-M0+ Processor Interruption and Exception Handlers         */
@@ -56,7 +55,6 @@ static __IO uint32_t sysTickCounter;
 */
 void SysTick_Handler(void)
 {
-	TimeTick_Decrement();
     HAL_IncTick();
 }
 
@@ -75,40 +73,18 @@ void SysTick_Init(void)
 }
 
 /**
- * This method needs to be called in the SysTick_Handler
- */
-void TimeTick_Decrement(void)
+* @brief This function handles TIM2 global interrupt.
+*/
+void TIM2_IRQHandler(void)
 {
-    if (sysTickCounter != 0x00)
-    {
-        sysTickCounter--;
-    }
-}
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
 
-void delay_nus(uint32_t n)
-{
-    sysTickCounter = n;
-    while (sysTickCounter != 0)
-    {
-    }
+  /* USER CODE END TIM2_IRQn 1 */
 }
-
-void delay_1ms(void)
-{
-    sysTickCounter = 1000;
-    while (sysTickCounter != 0)
-    {
-    }
-}
-
-void delay_nms(uint32_t n)
-{
-    while (n--)
-    {
-        delay_1ms();
-    }
-}
-
 /******************************************************************************/
 /* STM32L0xx Peripheral Interrupt Handlers                                    */
 /* Add here the Interrupt Handlers for the used peripherals.                  */

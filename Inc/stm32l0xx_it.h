@@ -48,10 +48,7 @@
 
 void SysTick_Handler(void);
 void SysTick_Init(void);
-void TimeTick_Decrement(void);
-void delay_nus(uint32_t n);
-void delay_1ms(void);
-void delay_nms(uint32_t n);
+void TIM2_IRQHandler(void);
 
 #ifdef __cplusplus
 }
