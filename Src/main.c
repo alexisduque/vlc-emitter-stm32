@@ -36,70 +36,7 @@ int main(void)
     {
     }
 
-    /*
-        __GPIOA_CLK_ENABLE();
-
-        GPIO_InitStruct.Pin = (GPIO_PIN_5);
-        GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
-        GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-        while (1)
-        {
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-
-        while (1)
-        {
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        }
-    */
 }
-
 
 void SystemClock_Config(void)
 {
@@ -157,6 +94,7 @@ void MX_TIM2_Init(void)
     sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
     sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
     HAL_TIM_OC_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1);
+    HAL_TIM_Base_Start_IT(&htim2);
 
 }
 
@@ -199,8 +137,6 @@ void MX_GPIO_Init(void)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-
 }
 
 /**
