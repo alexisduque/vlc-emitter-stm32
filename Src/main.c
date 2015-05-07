@@ -13,6 +13,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+#define FREQ_580
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -36,17 +37,10 @@ int main(void)
     GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-/*
+
     while (1)
     {
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        #ifdef FREQ_580
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
@@ -55,18 +49,23 @@ int main(void)
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    }
-*/
-    while (1)
-    {
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        #else
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
@@ -91,6 +90,7 @@ int main(void)
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+        #endif
     }
 
 }
