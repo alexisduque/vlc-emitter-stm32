@@ -73,6 +73,10 @@
 			<Add option="-eb_start_files" />
 			<Add option="-eb_lib=n" />
 		</Linker>
+		<Unit filename="Drivers\BSP\STM32L0xx_Nucleo\stm32l0xx_nucleo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Drivers\BSP\STM32L0xx_Nucleo\stm32l0xx_nucleo.h" />
 		<Unit filename="Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l051xx.h" />
 		<Unit filename="Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l052xx.h" />
 		<Unit filename="Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l053xx.h" />

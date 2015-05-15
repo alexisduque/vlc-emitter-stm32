@@ -16,8 +16,20 @@
 #define FREQ_580
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+UART_HandleTypeDef huart2;
+
+uint8_t aRxBuffer[RXBUFFERSIZE];
+uint8_t message[] = "11011101";
+int i = 0;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void sendManchesterMessage(void);
+void sendPreambule(void);
+void sendStartBit(void);
+void sendStopBit(void);
+void USART2_UART_Init();
+void GPIO_Init();
 
 GPIO_InitTypeDef GPIO_InitStruct;
 
@@ -26,8 +38,66 @@ int main(void)
     HAL_Init();
     SystemClock_Config();
     SysTick_Init();
+    GPIO_Init();
+    USART2_UART_Init();
+    BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
 
+    while (1)
+    {
+        HAL_UART_Receive_IT(&huart2, (uint8_t *)aRxBuffer, RXBUFFERSIZE);
+
+
+        if (BSP_PB_GetState(BUTTON_KEY) == RESET)
+        {
+            sendPreambule();
+            sendStartBit();
+            sendManchesterMessage();
+            sendStopBit();
+        }
+    }
+
+}
+
+/* USART2 init function */
+void USART2_UART_Init(void)
+{
+
+    huart2.Instance = USART2;
+    huart2.Init.BaudRate = 9600;
+    huart2.Init.WordLength = UART_WORDLENGTH_8B;
+    huart2.Init.StopBits = UART_STOPBITS_1;
+    huart2.Init.Parity = UART_PARITY_NONE;
+    huart2.Init.Mode = UART_MODE_TX_RX;
+    huart2.Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
+    huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+    huart2.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED;
+    huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+    HAL_UART_Init(&huart2);
+
+}
+
+/** Configure pins as
+        * Analog
+        * Input
+        * Output
+        * EVENT_OUT
+        * EXTI
+*/
+void GPIO_Init(void)
+{
+
+    GPIO_InitTypeDef GPIO_InitStruct;
+
+    /* GPIO Ports Clock Enable */
+    __GPIOC_CLK_ENABLE();
+    __GPIOH_CLK_ENABLE();
     __GPIOA_CLK_ENABLE();
+
+    /*Configure GPIO pin : PC13 */
+    GPIO_InitStruct.Pin = GPIO_PIN_13;
+    GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
     /* -2- Configure PA.5 IO in output push-pull mode to
            drive external LEDs */
@@ -37,65 +107,128 @@ int main(void)
     GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    while (1)
-    {
-        #ifdef FREQ_580
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        #else
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-        #endif
-    }
-
 }
 
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart2)
+{
+    while(1)
+    {
+    }
+}
 
+/**
+  * @brief  Rx Transfer completed callback
+  * @param  UartHandle: UART handle
+  * @note   This example shows a simple way to report end of IT Rx transfer, and
+  *         you can add your own implementation.
+  * @retval None
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart2)
+{
+    /* Set transmission flag: trasfer complete*/
+    HAL_UART_Transmit(huart2, (uint8_t*)&"OK\r\n", 6, 10);
+}
+
+void sendPreambule(void)
+{
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+}
+
+void sendStartBit(void)
+{
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+}
+
+void sendStopBit(void)
+{
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+}
+
+void sendManchesterMessage(void)
+{
+#ifdef FREQ_580
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+#else
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+#endif
+}
+
+void sendManchester()
+{
+    for(i=0; i<sizeof(message); i++)
+    {
+        switch(message[i])
+        {
+        case 0:
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+            break;
+
+        case 1:
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+            break;
+
+        default:
+            break;
+        }
+    }
+}
 /** System Clock Configuration
 */
 void SystemClock_Config(void)
@@ -124,6 +257,10 @@ void SystemClock_Config(void)
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
     RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
     HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1);
+
+    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
+    PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
+    HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit);
 
     __SYSCFG_CLK_ENABLE();
 }
