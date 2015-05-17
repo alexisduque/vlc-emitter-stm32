@@ -3,8 +3,8 @@
   * @file    Inc/main.h
   * @author  Alexis Duque
   * @version V0.0.1
-  * @date    30-March-2015
-  * @brief   Main ADC conversion with buffering
+  * @date    30-Avril-2015
+  * @brief   VLC Emitter Driver
   ******************************************************************************
   */
 

@@ -35,6 +35,7 @@
 #include "stm32l0xx_hal.h"
 #include "stm32l0xx.h"
 #include "stm32l0xx_it.h"
+#include "main.h"
 
 #define BITRATE_570KHZ 32000000
 #define BITRATE_285KHZ 32000000
@@ -46,6 +47,7 @@
 /* External variables --------------------------------------------------------*/
 
 static __IO uint32_t sysTickCounter;
+void EXTI4_15_IRQHandler(void);
 extern UART_HandleTypeDef huart2;
 
 /******************************************************************************/
@@ -57,7 +59,7 @@ extern UART_HandleTypeDef huart2;
 */
 void SysTick_Handler(void)
 {
-	TimeTick_Decrement();
+    TimeTick_Decrement();
     HAL_IncTick();
 }
 
@@ -91,13 +93,18 @@ void SysTick_Init(void)
   */
 void USART2_IRQHandler(void)
 {
-  /* USER CODE BEGIN USART2_IRQn 0 */
+    /* USER CODE BEGIN USART2_IRQn 0 */
 
-  /* USER CODE END USART2_IRQn 0 */
-  HAL_UART_IRQHandler(&huart2);
-  /* USER CODE BEGIN USART2_IRQn 1 */
+    /* USER CODE END USART2_IRQn 0 */
+    HAL_UART_IRQHandler(&huart2);
+    /* USER CODE BEGIN USART2_IRQn 1 */
 
-  /* USER CODE END USART2_IRQn 1 */
+    /* USER CODE END USART2_IRQn 1 */
+}
+
+void EXTI4_15_IRQHandler(void)
+{
+    HAL_GPIO_EXTI_IRQHandler(KEY_BUTTON_PIN);
 }
 
 /**

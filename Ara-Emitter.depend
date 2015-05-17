@@ -636,24 +636,27 @@
 1403117736 source:\\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_usart.c
 	"stm32l0xx_hal.h"
 
-1431689476 source:\\vboxsvr\stm32\ara-emitter\src\main.c
+1431853332 source:\\vboxsvr\stm32\ara-emitter\src\main.c
 	"main.h"
+	"4b6b.h"
+	"stm32l0xx_it.h"
 
-1431685870 \\vboxsvr\stm32\ara-emitter\inc\main.h
+1431770419 \\vboxsvr\stm32\ara-emitter\inc\main.h
 	<stdint.h>
 	<stdio.h>
 	"stm32l0xx_hal.h"
 	"stm32l0xx_nucleo.h"
 	"stm32l0xx_it.h"
 
-1431689142 source:\\vboxsvr\stm32\ara-emitter\src\stm32l0xx_hal_msp.c
+1431782793 source:\\vboxsvr\stm32\ara-emitter\src\stm32l0xx_hal_msp.c
 	"stm32l0xx_hal.h"
 	"main.h"
 
-1431688968 source:\\vboxsvr\stm32\ara-emitter\src\stm32l0xx_it.c
+1431846650 source:\\vboxsvr\stm32\ara-emitter\src\stm32l0xx_it.c
 	"stm32l0xx_hal.h"
 	"stm32l0xx.h"
 	"stm32l0xx_it.h"
+	"main.h"
 
 1431689004 \\vboxsvr\stm32\ara-emitter\inc\stm32l0xx_it.h
 
@@ -662,6 +665,12 @@
 1431603945 \\vboxsvr\stm32\ara-emitter\drivers\bsp\stm32l0xx_nucleo\stm32l0xx_nucleo.h
 	"stm32l0xx_hal.h"
 
-1431603933 source:\\vboxsvr\stm32\ara-emitter\drivers\bsp\stm32l0xx_nucleo\stm32l0xx_nucleo.c
+1431783576 source:\\vboxsvr\stm32\ara-emitter\drivers\bsp\stm32l0xx_nucleo\stm32l0xx_nucleo.c
 	"STM32l0xx_nucleo.h"
+
+1431773680 source:\\vboxsvr\stm32\ara-emitter\src\4b6b.c
+	"4b6b.h"
+
+1431775753 \\vboxsvr\stm32\ara-emitter\inc\4b6b.h
+	<stdint.h>
 

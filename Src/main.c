@@ -3,17 +3,20 @@
   * @file    Src/main.c
   * @author  Alexis Duque
   * @version V0.0.1
-  * @date    30-March-2015
-  * @brief   Main ADC conversion with buffering
+  * @date    30-Avril-2015
+  * @brief   VLC Emitter Driver
   ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "4b6b.h"
+#include "stm32l0xx_it.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define FREQ_580
+#define BIT_PERIOD      0
+//#define CODE_4B6B
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -21,15 +24,24 @@ UART_HandleTypeDef huart2;
 
 uint8_t aRxBuffer[RXBUFFERSIZE];
 uint8_t message[] = "11011101";
+uint16_t counter = 0;
 int i = 0;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void GPIO_Init();
 void sendManchesterMessage(void);
+void sendManchesterCounter(void);
+void send4B6BCounter();
+void send4B6BEncoded6Bits(uint8_t bits);
+void sendManchesterDefaultMessage(void);
 void sendPreambule(void);
 void sendStartBit(void);
 void sendStopBit(void);
-void USART2_UART_Init();
-void GPIO_Init();
+void sendNoData(void);
+void delay (int a);
+void send0(void);
+void send1(void);
+//void USART2_UART_Init();
 
 GPIO_InitTypeDef GPIO_InitStruct;
 
@@ -39,41 +51,50 @@ int main(void)
     SystemClock_Config();
     SysTick_Init();
     GPIO_Init();
-    USART2_UART_Init();
-    BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_GPIO);
-
+    //USART2_UART_Init();
+    BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
     while (1)
     {
-        HAL_UART_Receive_IT(&huart2, (uint8_t *)aRxBuffer, RXBUFFERSIZE);
+        //HAL_UART_Receive_IT(&huart2, (uint8_t *)aRxBuffer, RXBUFFERSIZE);
+        send0();
+        send1();
+    }
+}
 
 
-        if (BSP_PB_GetState(BUTTON_KEY) == RESET)
-        {
-            sendPreambule();
-            sendStartBit();
-            sendManchesterMessage();
-            sendStopBit();
-        }
+/**
+  * @brief EXTI line detection callback.
+  * @param GPIO_Pin: Specifies the pins connected EXTI line
+  * @retval None
+  */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if(GPIO_Pin == KEY_BUTTON_PIN)
+    {
+        sendPreambule();
+        sendStartBit();
+#ifndef CODE_4B6B
+        sendManchesterDefaultMessage();
+        //sendManchesterCounter();
+#else
+        send4B6BCounter();
+#endif
+        sendStopBit();
+        counter++;
     }
 
 }
 
-/* USART2 init function */
-void USART2_UART_Init(void)
+void delay (int a)
 {
+    volatile int i,j;
 
-    huart2.Instance = USART2;
-    huart2.Init.BaudRate = 9600;
-    huart2.Init.WordLength = UART_WORDLENGTH_8B;
-    huart2.Init.StopBits = UART_STOPBITS_1;
-    huart2.Init.Parity = UART_PARITY_NONE;
-    huart2.Init.Mode = UART_MODE_TX_RX;
-    huart2.Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
-    huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-    huart2.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED;
-    huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-    HAL_UART_Init(&huart2);
+    for (i=0 ; i < a ; i++)
+    {
+        j++;
+    }
 
+    return;
 }
 
 /** Configure pins as
@@ -109,6 +130,150 @@ void GPIO_Init(void)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 }
 
+void sendPreambule(void)
+{
+    send0();
+    send0();
+    send0();
+    send0();
+    send1();
+    send1();
+    send1();
+    send1();
+    send1();
+    send1();
+}
+
+void sendStartBit(void)
+{
+    send0();
+}
+
+void sendStopBit(void)
+{
+    send1();
+}
+
+void sendManchesterDefaultMessage(void)
+{
+    send1();
+    send0();
+    send1();
+    send0();
+    send0();
+    send1();
+    send1();
+    send0();
+    send1();
+    send0();
+    send1();
+    send0();
+    send0();
+    send1();
+    send1();
+    send0();
+}
+
+void sendManchesterMessage()
+{
+    for(i=0; i<sizeof(message); i++)
+    {
+        switch(message[i])
+        {
+        case 0:
+            send0();
+            send1();
+            break;
+
+        case 1:
+            send1();
+            send0();
+            break;
+
+        default:
+            break;
+        }
+    }
+}
+void sendManchesterCounter()
+{
+    for(i=16; i>0; i--)
+    {
+        if (counter & (1 << (i-1)))
+        {
+            send1();
+            send0();
+        }
+        else
+        {
+            send0();
+            send1();
+        }
+    }
+}
+
+void send4B6BCounter()
+{
+    uint8_t * splitedCounter = convertFrom16To8(counter);
+    uint8_t first4b6b = encode4b6b(splitedCounter[0]);
+    uint8_t sec4b6b = encode4b6b(splitedCounter[1]);
+    send4B6BEncoded6Bits(first4b6b);
+    send4B6BEncoded6Bits(sec4b6b);
+}
+
+void send4B6BEncoded6Bits(uint8_t bits)
+{
+    int i = 0;
+    for (i=6; i>0; i--)
+    {
+        if (bits & (1 << (i-1)))
+        {
+            send1();
+        }
+        else
+        {
+            send0();
+        }
+    }
+}
+
+void sendNoData()
+{
+    send0();
+    send1();
+}
+
+void send1()
+{
+    GPIOA->BSRR = GPIO_PIN_5;
+    delay(BIT_PERIOD);
+}
+
+void send0()
+{
+    GPIOA->BRR = GPIO_PIN_5 ;
+    delay(BIT_PERIOD);
+}
+#ifdef UART_ENABLED
+
+/* USART2 init function */
+void USART2_UART_Init(void)
+{
+
+    huart2.Instance = USART2;
+    huart2.Init.BaudRate = 9600;
+    huart2.Init.WordLength = UART_WORDLENGTH_8B;
+    huart2.Init.StopBits = UART_STOPBITS_1;
+    huart2.Init.Parity = UART_PARITY_NONE;
+    huart2.Init.Mode = UART_MODE_TX_RX;
+    huart2.Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
+    huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+    huart2.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED;
+    huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+    HAL_UART_Init(&huart2);
+
+}
+
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart2)
 {
     while(1)
@@ -129,106 +294,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart2)
     HAL_UART_Transmit(huart2, (uint8_t*)&"OK\r\n", 6, 10);
 }
 
-void sendPreambule(void)
-{
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-}
-
-void sendStartBit(void)
-{
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-}
-
-void sendStopBit(void)
-{
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-}
-
-void sendManchesterMessage(void)
-{
-#ifdef FREQ_580
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-#else
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
 #endif
-}
 
-void sendManchester()
-{
-    for(i=0; i<sizeof(message); i++)
-    {
-        switch(message[i])
-        {
-        case 0:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            break;
-
-        case 1:
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-            break;
-
-        default:
-            break;
-        }
-    }
-}
 /** System Clock Configuration
 */
 void SystemClock_Config(void)
@@ -236,7 +303,6 @@ void SystemClock_Config(void)
 
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
-    RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
     __PWR_CLK_ENABLE();
 
@@ -257,10 +323,6 @@ void SystemClock_Config(void)
     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
     RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
     HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1);
-
-    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
-    PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
-    HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit);
 
     __SYSCFG_CLK_ENABLE();
 }
