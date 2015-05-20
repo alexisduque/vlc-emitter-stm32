@@ -1,65 +1,14 @@
 # depslib dependency file v1.0
-1428086327 source:c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\source\templates\system_stm32l0xx.c
-	"stm32l0xx.h"
+1431783576 source:\\vboxsvr\stm32\ara-emitter\drivers\bsp\stm32l0xx_nucleo\stm32l0xx_nucleo.c
+	"STM32l0xx_nucleo.h"
 
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\stm32l0xx.h
-	"stm32l051xx.h"
-	"stm32l052xx.h"
-	"stm32l053xx.h"
-	"stm32l062xx.h"
-	"stm32l063xx.h"
-	"stm32l061xx.h"
+1431603945 \\vboxsvr\stm32\ara-emitter\drivers\bsp\stm32l0xx_nucleo\stm32l0xx_nucleo.h
 	"stm32l0xx_hal.h"
 
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\stm32l051xx.h
-	"core_cm0plus.h"
-	"system_stm32l0xx.h"
-	<stdint.h>
-
-1428086329 c:\users\alex\desktop\ara-receiver\drivers\cmsis\include\core_cm0plus.h
-	<stdint.h>
-	<core_cmInstr.h>
-	<core_cmFunc.h>
-
-1428086329 c:\users\alex\desktop\ara-receiver\drivers\cmsis\include\core_cminstr.h
-	<cmsis_iar.h>
-	<cmsis_ccs.h>
-
-1428086329 c:\users\alex\desktop\ara-receiver\drivers\cmsis\include\core_cmfunc.h
-	<cmsis_iar.h>
-	<cmsis_ccs.h>
-
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\system_stm32l0xx.h
-
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\stm32l052xx.h
-	"core_cm0plus.h"
-	"system_stm32l0xx.h"
-	<stdint.h>
-
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\stm32l053xx.h
-	"core_cm0plus.h"
-	"system_stm32l0xx.h"
-	<stdint.h>
-
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\stm32l062xx.h
-	"core_cm0plus.h"
-	"system_stm32l0xx.h"
-	<stdint.h>
-
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\stm32l063xx.h
-	"core_cm0plus.h"
-	"system_stm32l0xx.h"
-	<stdint.h>
-
-1428086327 c:\users\alex\desktop\ara-receiver\drivers\cmsis\device\st\stm32l0xx\include\stm32l061xx.h
-	"core_cm0plus.h"
-	"system_stm32l0xx.h"
-	<stdint.h>
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal.h
+1403117740 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal.h
 	"stm32l0xx_hal_conf.h"
 
-1430477698 c:\users\alex\desktop\ara-receiver\inc\stm32l0xx_hal_conf.h
+1431677490 \\vboxsvr\stm32\ara-emitter\inc\stm32l0xx_hal_conf.h
 	"stm32l0xx_hal_rcc.h"
 	"stm32l0xx_hal_gpio.h"
 	"stm32l0xx_hal_dma.h"
@@ -89,255 +38,11 @@
 	"stm32l0xx_hal_wwdg.h"
 	"stm32l0xx_hal_pcd.h"
 
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rcc.h
+1403117744 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rcc.h
 	"stm32l0xx_hal_def.h"
 	"stm32L0xx_hal_rcc_ex.h"
 
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_def.h
-	"stm32l0xx.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rcc_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117746 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_gpio.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_gpio_ex.h"
-
-1403117746 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_gpio_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_dma.h
-	"stm32l0xx_hal_def.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_cortex.h
-	"stm32l0xx_hal_def.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_adc.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_adc_ex.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_adc_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117746 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_comp.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_crc.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_crc_ex.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_crc_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_cryp.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_cryp_ex.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_cryp_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_dac.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_dac_ex.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_dac_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117746 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_flash.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_flash_ex.h"
-	"stm32l0xx_hal_flash_ramfunc.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_flash_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_flash_ramfunc.h
-	"stm32l0xx_hal_def.h"
-
-1428762685 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_i2c.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_i2c_ex.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_i2c_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_i2s.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_iwdg.h
-	"stm32l0xx_hal_def.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_lcd.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_lptim.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_pwr.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_pwr_ex.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_pwr_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rng.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rtc.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_rtc_ex.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rtc_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_spi.h
-	"stm32l0xx_hal_def.h"
-
-1403117746 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_tim.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_tim_ex.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_tim_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117746 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_tsc.h
-	"stm32l0xx_hal_def.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_uart.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_uart_ex.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_uart_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_usart.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_usart_ex.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_usart_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_irda.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_irda_ex.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_irda_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_smartcard.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_smartcard_ex.h"
-
-1403117740 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_smartcard_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117746 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_smbus.h
-	"stm32l0xx_hal_def.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_wwdg.h
-	"stm32l0xx_hal_def.h"
-
-1403117744 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_pcd.h
-	"stm32l0xx_hal_def.h"
-	"stm32l0xx_hal_pcd_ex.h"
-
-1403117742 c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_pcd_ex.h
-	"stm32l0xx_hal_def.h"
-
-1403117734 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_adc.c
-	"stm32l0xx_hal.h"
-
-1403117736 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_adc_ex.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_cortex.c
-	"stm32l0xx_hal.h"
-
-1403117736 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_dma.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_flash.c
-	"stm32l0xx_hal.h"
-
-1403117736 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_flash_ex.c
-	"stm32l0xx_hal.h"
-
-1403117732 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_flash_ramfunc.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_gpio.c
-	"stm32l0xx_hal.h"
-
-1428756965 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_i2c.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_i2c_ex.c
-	"stm32l0xx_hal.h"
-
-1403117732 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_pwr.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_pwr_ex.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_rcc.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_rcc_ex.c
-	"stm32l0xx_hal.h"
-
-1403117738 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_uart.c
-	"stm32l0xx_hal.h"
-
-1403117730 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_uart_ex.c
-	"stm32l0xx_hal.h"
-
-1403117736 source:c:\users\alex\desktop\ara-receiver\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_usart.c
-	"stm32l0xx_hal.h"
-
-1429385893 source:c:\users\alex\desktop\ara-receiver\src\gpio.c
-	"gpio.h"
-
-1429385877 c:\users\alex\desktop\ara-receiver\inc\gpio.h
-	"stm32l0xx_hal.h"
-
-1428223761 source:c:\users\alex\desktop\ara-receiver\src\stm32l0xx_hal_msp.c
-	"stm32l0xx_hal.h"
-
-1430481961 source:c:\users\alex\desktop\ara-receiver\src\stm32l0xx_it.c
-	"stm32l0xx_hal.h"
-	"stm32l0xx.h"
-	"stm32l0xx_it.h"
-
-1430481655 c:\users\alex\desktop\ara-receiver\inc\stm32l0xx_it.h
-
-1429876008 c:\users\alex\desktop\ara-receiver\inc\i2c.h
-	"stm32l0xx_hal.h"
-	"gpio.h"
-
-1429876008 source:c:\users\alex\desktop\ara-receiver\src\uart.c
-	"uart.h"
-
-1429876008 c:\users\alex\desktop\ara-receiver\inc\uart.h
-	"stm32l0xx_hal.h"
-
-1429860489 source:c:\users\alex\desktop\ara-receiver\startup_stm32l0xx.s
-
-1430484774 source:c:\users\alex\desktop\ara-receiver\src\main.c
-	"main.h"
-	"gpio.h"
-	"uart.h"
-
-1430481852 c:\users\alex\desktop\ara-receiver\inc\main.h
-	<stdint.h>
-	<stdio.h>
-	"stm32l0xx_hal.h"
-	"stm32l0xx_it.h"
-
-1428086327 source:\\vboxsvr\stm32\ara-emitter\drivers\cmsis\device\st\stm32l0xx\source\templates\system_stm32l0xx.c
+1403117742 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_def.h
 	"stm32l0xx.h"
 
 1428086327 \\vboxsvr\stm32\ara-emitter\drivers\cmsis\device\st\stm32l0xx\include\stm32l0xx.h
@@ -393,46 +98,6 @@
 	"core_cm0plus.h"
 	"system_stm32l0xx.h"
 	<stdint.h>
-
-1403117740 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal.h
-	"stm32l0xx_hal_conf.h"
-
-1431677490 \\vboxsvr\stm32\ara-emitter\inc\stm32l0xx_hal_conf.h
-	"stm32l0xx_hal_rcc.h"
-	"stm32l0xx_hal_gpio.h"
-	"stm32l0xx_hal_dma.h"
-	"stm32l0xx_hal_cortex.h"
-	"stm32l0xx_hal_adc.h"
-	"stm32l0xx_hal_comp.h"
-	"stm32l0xx_hal_crc.h"
-	"stm32l0xx_hal_cryp.h"
-	"stm32l0xx_hal_dac.h"
-	"stm32l0xx_hal_flash.h"
-	"stm32l0xx_hal_i2c.h"
-	"stm32l0xx_hal_i2s.h"
-	"stm32l0xx_hal_iwdg.h"
-	"stm32l0xx_hal_lcd.h"
-	"stm32l0xx_hal_lptim.h"
-	"stm32l0xx_hal_pwr.h"
-	"stm32l0xx_hal_rng.h"
-	"stm32l0xx_hal_rtc.h"
-	"stm32l0xx_hal_spi.h"
-	"stm32l0xx_hal_tim.h"
-	"stm32l0xx_hal_tsc.h"
-	"stm32l0xx_hal_uart.h"
-	"stm32l0xx_hal_usart.h"
-	"stm32l0xx_hal_irda.h"
-	"stm32l0xx_hal_smartcard.h"
-	"stm32l0xx_hal_smbus.h"
-	"stm32l0xx_hal_wwdg.h"
-	"stm32l0xx_hal_pcd.h"
-
-1403117744 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rcc.h
-	"stm32l0xx_hal_def.h"
-	"stm32L0xx_hal_rcc_ex.h"
-
-1403117742 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_def.h
-	"stm32l0xx.h"
 
 1403117740 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_rcc_ex.h
 	"stm32l0xx_hal_def.h"
@@ -582,6 +247,9 @@
 1403117742 \\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\inc\stm32l0xx_hal_pcd_ex.h
 	"stm32l0xx_hal_def.h"
 
+1428086327 source:\\vboxsvr\stm32\ara-emitter\drivers\cmsis\device\st\stm32l0xx\source\templates\system_stm32l0xx.c
+	"stm32l0xx.h"
+
 1403117734 source:\\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal.c
 	"stm32l0xx_hal.h"
 
@@ -636,7 +304,13 @@
 1403117736 source:\\vboxsvr\stm32\ara-emitter\drivers\stm32l0xx_hal_driver\src\stm32l0xx_hal_usart.c
 	"stm32l0xx_hal.h"
 
-1431853332 source:\\vboxsvr\stm32\ara-emitter\src\main.c
+1432127940 source:\\vboxsvr\stm32\ara-emitter\src\4b6b.c
+	"4b6b.h"
+
+1432128108 \\vboxsvr\stm32\ara-emitter\inc\4b6b.h
+	<stdint.h>
+
+1432128205 source:\\vboxsvr\stm32\ara-emitter\src\main.c
 	"main.h"
 	"4b6b.h"
 	"stm32l0xx_it.h"
@@ -648,6 +322,8 @@
 	"stm32l0xx_nucleo.h"
 	"stm32l0xx_it.h"
 
+1431689004 \\vboxsvr\stm32\ara-emitter\inc\stm32l0xx_it.h
+
 1431782793 source:\\vboxsvr\stm32\ara-emitter\src\stm32l0xx_hal_msp.c
 	"stm32l0xx_hal.h"
 	"main.h"
@@ -658,19 +334,5 @@
 	"stm32l0xx_it.h"
 	"main.h"
 
-1431689004 \\vboxsvr\stm32\ara-emitter\inc\stm32l0xx_it.h
-
 1429860489 source:\\vboxsvr\stm32\ara-emitter\startup_stm32l0xx.s
-
-1431603945 \\vboxsvr\stm32\ara-emitter\drivers\bsp\stm32l0xx_nucleo\stm32l0xx_nucleo.h
-	"stm32l0xx_hal.h"
-
-1431783576 source:\\vboxsvr\stm32\ara-emitter\drivers\bsp\stm32l0xx_nucleo\stm32l0xx_nucleo.c
-	"STM32l0xx_nucleo.h"
-
-1431773680 source:\\vboxsvr\stm32\ara-emitter\src\4b6b.c
-	"4b6b.h"
-
-1431775753 \\vboxsvr\stm32\ara-emitter\inc\4b6b.h
-	<stdint.h>
 

@@ -41,6 +41,7 @@ void sendNoData(void);
 void delay (int a);
 void send0(void);
 void send1(void);
+long time = 0;
 //void USART2_UART_Init();
 
 GPIO_InitTypeDef GPIO_InitStruct;
@@ -55,9 +56,21 @@ int main(void)
     BSP_PB_Init(BUTTON_KEY, BUTTON_MODE_EXTI);
     while (1)
     {
-        //HAL_UART_Receive_IT(&huart2, (uint8_t *)aRxBuffer, RXBUFFERSIZE);
-        send0();
-        send1();
+        time++;
+        if (time > 1000)
+        {
+            sendPreambule();
+            sendStartBit();
+            send4B6BCounter();
+            sendStopBit();
+            counter++;
+            time = 0;
+        }
+        else
+        {
+            sendNoData();
+        }
+
     }
 }
 
@@ -68,6 +81,8 @@ int main(void)
   * @retval None
   */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+
+
 {
     if(GPIO_Pin == KEY_BUTTON_PIN)
     {
@@ -132,14 +147,17 @@ void GPIO_Init(void)
 
 void sendPreambule(void)
 {
+    send1();
+    send1();
+    send0();
+    send1();
     send0();
     send0();
+
     send0();
     send0();
     send1();
-    send1();
-    send1();
-    send1();
+    send0();
     send1();
     send1();
 }
@@ -214,11 +232,20 @@ void sendManchesterCounter()
 
 void send4B6BCounter()
 {
-    uint8_t * splitedCounter = convertFrom16To8(counter);
+    int i = 0;
+    uint8_t * splitedCounter = convertFrom16To4(counter);
+    for(i=0;i<4;i++)
+    {
+        send4B6BEncoded6Bits(encode4b6b(splitedCounter[i]));
+    }
+    /*
     uint8_t first4b6b = encode4b6b(splitedCounter[0]);
     uint8_t sec4b6b = encode4b6b(splitedCounter[1]);
+    uint8_t sec4b6b = encode4b6b(splitedCounter[2]);
+    uint8_t sec4b6b = encode4b6b(splitedCounter[3]);
     send4B6BEncoded6Bits(first4b6b);
     send4B6BEncoded6Bits(sec4b6b);
+    */
 }
 
 void send4B6BEncoded6Bits(uint8_t bits)
@@ -239,7 +266,18 @@ void send4B6BEncoded6Bits(uint8_t bits)
 
 void sendNoData()
 {
+    send1();
+    send1();
+    send1();
     send0();
+    send0();
+    send0();
+
+    send0();
+    send0();
+    send0();
+    send1();
+    send1();
     send1();
 }
 
@@ -254,47 +292,6 @@ void send0()
     GPIOA->BRR = GPIO_PIN_5 ;
     delay(BIT_PERIOD);
 }
-#ifdef UART_ENABLED
-
-/* USART2 init function */
-void USART2_UART_Init(void)
-{
-
-    huart2.Instance = USART2;
-    huart2.Init.BaudRate = 9600;
-    huart2.Init.WordLength = UART_WORDLENGTH_8B;
-    huart2.Init.StopBits = UART_STOPBITS_1;
-    huart2.Init.Parity = UART_PARITY_NONE;
-    huart2.Init.Mode = UART_MODE_TX_RX;
-    huart2.Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
-    huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-    huart2.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED;
-    huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-    HAL_UART_Init(&huart2);
-
-}
-
-void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart2)
-{
-    while(1)
-    {
-    }
-}
-
-/**
-  * @brief  Rx Transfer completed callback
-  * @param  UartHandle: UART handle
-  * @note   This example shows a simple way to report end of IT Rx transfer, and
-  *         you can add your own implementation.
-  * @retval None
-  */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart2)
-{
-    /* Set transmission flag: trasfer complete*/
-    HAL_UART_Transmit(huart2, (uint8_t*)&"OK\r\n", 6, 10);
-}
-
-#endif
 
 /** System Clock Configuration
 */
@@ -352,6 +349,47 @@ void assert_failed(uint8_t* file, uint32_t line)
 
 #endif
 
+#ifdef UART_ENABLED
+
+/* USART2 init function */
+void USART2_UART_Init(void)
+{
+
+    huart2.Instance = USART2;
+    huart2.Init.BaudRate = 9600;
+    huart2.Init.WordLength = UART_WORDLENGTH_8B;
+    huart2.Init.StopBits = UART_STOPBITS_1;
+    huart2.Init.Parity = UART_PARITY_NONE;
+    huart2.Init.Mode = UART_MODE_TX_RX;
+    huart2.Init.HwFlowCtl = UART_HWCONTROL_RTS_CTS;
+    huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+    huart2.Init.OneBitSampling = UART_ONEBIT_SAMPLING_DISABLED;
+    huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+    HAL_UART_Init(&huart2);
+
+}
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart2)
+{
+    while(1)
+    {
+    }
+}
+
+/**
+  * @brief  Rx Transfer completed callback
+  * @param  UartHandle: UART handle
+  * @note   This example shows a simple way to report end of IT Rx transfer, and
+  *         you can add your own implementation.
+  * @retval None
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart2)
+{
+    /* Set transmission flag: trasfer complete*/
+    HAL_UART_Transmit(huart2, (uint8_t*)&"OK\r\n", 6, 10);
+}
+
+#endif
 /**
   * @}
   */

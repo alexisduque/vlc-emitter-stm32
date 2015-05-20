@@ -37,7 +37,7 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 uint16_t convertFrom8To16(uint8_t dataFirst, uint8_t dataSecond);
-uint8_t *convertFrom16To8(uint16_t dataAll);
+uint8_t *convertFrom16To4(uint16_t dataAll);
 uint8_t encode4b6b(uint8_t value);
 #endif
 
