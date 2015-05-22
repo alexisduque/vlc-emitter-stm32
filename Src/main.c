@@ -15,7 +15,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define BIT_PERIOD      0
+#define BIT_PERIOD      1
 //#define CODE_4B6B
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -57,12 +57,12 @@ int main(void)
     while (1)
     {
         time++;
-        if (time > 1000)
+        if (time > 10)
         {
             sendPreambule();
-            sendStartBit();
+            //sendStartBit();
             send4B6BCounter();
-            sendStopBit();
+            //sendStopBit();
             counter++;
             time = 0;
         }
