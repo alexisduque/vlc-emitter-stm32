@@ -62,7 +62,7 @@ int main(void)
             sendPreambule();
             //sendStartBit();
             send4B6BCounter();
-            //sendStopBit();
+            sendStopBit();
             counter++;
             time = 0;
         }
@@ -169,6 +169,11 @@ void sendStartBit(void)
 
 void sendStopBit(void)
 {
+    send0();
+    send0();
+    send1();
+    send0();
+    send1();
     send1();
 }
 
